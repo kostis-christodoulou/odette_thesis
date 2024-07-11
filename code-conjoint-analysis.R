@@ -144,6 +144,13 @@ plot(as.data.frame(AttrImportance)[,1:5],labels=c("Availability","Nutrition","Pr
 
 # do the same with GGally::ggpairs()
 as.data.frame(AttrImportance) |> 
+  rename(
+    Availability = range.availability,
+    Nutrition = range.nutrition,
+    Price = range.price,
+    Taste = range.taste,
+    Texture = range.texture
+  ) |> 
   ggpairs()
 
 #***********************************************************************************
