@@ -47,16 +47,13 @@ cor(caEncodedDesign(ortho.design))
 ## PART 2: Reading and setting up the data inputs
 #***********************************************************************************
 
+library(tidyverse)
+library(readxl)
+library(GGally)
+
 # 1. Conjoint dummies
 # Import the conjoint orthogonal design output dummy file.
-library(readxl)
-# X07072024_conjointdummies <- read_excel("~/Documents/ESMT/MASTERS THESIS/R DATA ANALYSIS/07072024_conjointdummies.xlsx")
- 
-#View(X07072024_conjointdummies)
-
-# dummies <- X07072024_conjointdummies
-
-dummies <- read_excel("07072024_conjointdummies.xlsx")
+dummies <- read_excel("data/07072024_conjointdummies.xlsx")
 
 # Check that the computer has read the file correctly, by taking a look at the first few lines of the "dummies" object.
 head(dummies)
@@ -66,19 +63,8 @@ dummies <- as.matrix(dummies)
 
 # 2. Response (ratings) data
 # Read the response (ratings) data. Call it "cdata"
-library(tidyverse)
 
-#X11072024_qualtrics_cleaned_data <- read_csv("11072024/11072024_qualtrics cleaned data.csv")
-# View(X11072024_qualtrics_cleaned_data)
-
-
-# Read the response (ratings) data. Call it "cdata"
-# cdata <- X11072024_qualtrics_cleaned_data
-
-cdata <- read_csv("11072024_qualtrics cleaned data.csv")
-
-
-
+cdata <- read_csv("data/11072024_qualtrics cleaned data.csv")
 
 # Check that the computer has "read" the file correctly. Let's peak at the first few lines of the "cdata" object.
 head(cdata)
@@ -154,6 +140,11 @@ head(AttrImportance)
 #Data visualization:
 #Plot attribute importance for Price vs. Drink Vs. Food
 plot(as.data.frame(AttrImportance)[,1:5],labels=c("Availability","Nutrition","Price","Taste","Texture"))
+
+
+# do the same with GGally::ggpairs()
+as.data.frame(AttrImportance) |> 
+  ggpairs()
 
 #***********************************************************************************
 ## PART 5: Testing hypotheses by segmenting
